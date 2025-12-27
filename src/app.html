@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en" class="shale-v1-webkit-scrollbar shale-v1-light">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="https://logonoff.co/shalecss/build/shale.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap"
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		/>
+		<link rel="icon" href="https://logonoff.co/assets/profile/profile.png" type="image/png" />
+		<script>
+			// check for dark mode preference
+			const updateTheme = () => {
+				if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+					document.documentElement.classList.remove('shale-v1-light');
+					document.documentElement.classList.add('shale-v1-dark');
+				} else {
+					document.documentElement.classList.remove('shale-v1-dark');
+					document.documentElement.classList.add('shale-v1-light');
+				}
+			};
+			window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateTheme);
+			updateTheme();
+		</script>
+		%sveltekit.head%
+	</head>
+	<body data-sveltekit-preload-data="hover" class="shale-v1-body" style="min-height: 100vh">
+		%sveltekit.body%
+	</body>
+</html>
