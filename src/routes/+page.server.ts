@@ -44,8 +44,10 @@ export const actions = {
 			}
 		});
 
-		if (!res.ok) {
-			return { success: false, message: 'Failed to submit entry' };
+		const response = await res.text();
+
+		if (response !== 'OK') {
+			return { success: false, message: response };
 		}
 
 		return { success: true };

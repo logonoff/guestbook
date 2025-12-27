@@ -76,7 +76,7 @@
 
 {#if form && form.success === true}
 	<div class="shale-v1-note-tip">
-		your message has been submitted successfully! it will show up when i reply to it. :)
+		your message has been sent! it'll show up when i reply to it :)
 	</div>
 {:else if form && form.success === false}
 	<div class="shale-v1-note-alert">
