@@ -2,6 +2,28 @@
 
 A simple guestbook frontend
 
+## `API_URL` expectations
+
+### `GET` /
+
+Returns a list of guestbook entries in JSON format:
+
+```jsonc
+[
+  {
+    "name": "John Doe",
+    "message": "Hello, world!",
+    "timestamp": "2024-01-01T12:00:00Z",
+    "reply": "hi"
+  },
+  // ...
+]
+```
+
+### `POST` /
+
+Accepts a form submission with `name`, `message`, `email` fields.
+
 ## Developing
 
 Start a development server:
