@@ -5,7 +5,20 @@
 </script>
 
 <div class="shale-v1-flex-space-between">
-	<small class="shale-v1-p">leave a message below :)</small>
+	<small class="shale-v1-p"
+		><a
+			class="shale-v1-link"
+			href="#message-form"
+			aria-haspopup="dialog"
+			type="button"
+			onclick={() => {
+				document.querySelector<HTMLDialogElement>('#message-form')?.showModal();
+			}}
+		>
+			leave a message!
+		</a>
+		write whatever you want, and i'll post a reply below:</small
+	>
 
 	<button
 		class="shale-v1-button"
@@ -86,12 +99,13 @@
 {#if data.entries && data.entries.length > 0}
 	{#each data.entries as entry (entry.timestamp)}
 		<div class="shale-v1-card">
-			<h3 class="shale-v1-h3">{entry.name}</h3>
-			<p>{entry.message}</p>
-			<small>sent on {new Date(entry.timestamp).toLocaleString()}</small>
+			<small class="shale-v1-h6"
+				>{entry.name} said on {new Date(entry.timestamp).toLocaleString()}</small
+			>
+			<p class="shale-v1-p">{entry.message}</p>
 			<hr />
-			<p>my reply:</p>
-			<p>{entry.reply}</p>
+			<small class="shale-v1-h6">my reply:</small>
+			<p class="shale-v1-p">{entry.reply}</p>
 		</div>
 	{/each}
 {:else}
