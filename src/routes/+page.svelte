@@ -4,19 +4,18 @@
 	const { data, form }: PageProps = $props();
 </script>
 
-<div>
-	<h1 class="shale-v1-h3">guestbook</h1>
+<div class="shale-v1-flex-space-between">
 	<small class="shale-v1-p">leave a message below :)</small>
-</div>
 
-<button
-	class="shale-v1-button"
-	command="show-modal"
-	commandfor="message-form"
-	aria-haspopup="dialog"
->
-	send a message
-</button>
+	<button
+		class="shale-v1-button"
+		command="show-modal"
+		commandfor="message-form"
+		aria-haspopup="dialog"
+	>
+		send a message
+	</button>
+</div>
 
 <dialog id="message-form" class="shale-v1-dialog">
 	<header class="shale-v1-header shale-v1-header-compact">
