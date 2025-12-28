@@ -4,7 +4,9 @@ A simple guestbook frontend
 
 ## `API_URL` expectations
 
-### `GET` /
+The app reads the `API_URL` environment variable to determine where to send and receive guestbook entries.
+
+### `GET`
 
 Returns a list of guestbook entries in JSON format:
 
@@ -20,7 +22,7 @@ Returns a list of guestbook entries in JSON format:
 ]
 ```
 
-### `POST` /
+### `POST`
 
 Accepts a form submission with `name`, `message`, `email` fields.
 

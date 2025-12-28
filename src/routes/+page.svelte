@@ -2,6 +2,8 @@
 	import type { PageProps } from './$types';
 
 	const { data, form }: PageProps = $props();
+
+	let sending = $state(false);
 </script>
 
 <div class="shale-v1-flex-space-between">
@@ -48,7 +50,14 @@
 		</menu>
 	</header>
 
-	<form action="/" method="POST">
+	<form
+		action="/"
+		method="POST"
+		onsubmit={() => {
+			document.querySelector<HTMLDialogElement>('#message-form')?.close();
+			sending = true;
+		}}
+	>
 		<div class="shale-v1-container">
 			<div class="shale-v1-flex-form">
 				<div class="shale-v1-input">
@@ -96,16 +105,20 @@
 	</div>
 {/if}
 
+{#if sending === true}
+	<div class="shale-v1-note-info">sending your message...</div>
+{/if}
+
 {#if data.entries && data.entries.length > 0}
 	{#each data.entries as entry (entry.timestamp)}
 		<div class="shale-v1-card">
-			<small class="shale-v1-h6"
-				>{entry.name} said on {new Date(entry.timestamp).toLocaleString()}</small
-			>
+			<small class="shale-v1-h6" style="margin-top: 0;">
+				{entry.name} said on {new Date(entry.timestamp).toLocaleString()}
+			</small>
 			<p class="shale-v1-p">{entry.message}</p>
 			<hr />
 			<small class="shale-v1-h6">my reply:</small>
-			<p class="shale-v1-p">{entry.reply}</p>
+			<p class="shale-v1-p" style="margin-bottom: 0;">{entry.reply}</p>
 		</div>
 	{/each}
 {:else}
