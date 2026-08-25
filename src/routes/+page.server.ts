@@ -2,6 +2,14 @@ import { API_URL } from '$env/static/private';
 import type { Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
+export const config = {
+	/** @see https://vercel.com/docs/incremental-static-regeneration */
+	isr: {
+		// Revalidate every hour
+		expiration: 60 * 60
+	}
+};
+
 export type GuestbookApiResponse = Array<{
 	timestamp: string;
 	name: string;
