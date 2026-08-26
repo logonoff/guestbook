@@ -5,8 +5,8 @@ import type { PageServerLoad } from './$types';
 export const config = {
 	/** @see https://vercel.com/docs/incremental-static-regeneration */
 	isr: {
-		// Revalidate every hour
-		expiration: 60 * 60
+		// Revalidate every 10 minutes
+		expiration: 60 * 10
 	}
 };
 
@@ -17,27 +17,13 @@ export type GuestbookApiResponse = Array<{
 	reply: string; // only guestbook entries with a reply are shown
 }>;
 
-const cache: { data: GuestbookApiResponse | null; timestamp: number } = {
-	data: null,
-	timestamp: 0
-};
-const CACHE_DURATION = 60 * 1000; // 1 minute
-
 export const load: PageServerLoad = async () => {
-	const now = Date.now();
-
-	if (now - cache.timestamp < CACHE_DURATION && cache.data) {
-		return { entries: cache.data };
-	}
-
 	const res = await fetch(API_URL);
 	if (!res.ok) {
 		throw new Error('Failed to fetch guestbook entries');
 	}
 
 	const data = (await res.json()) as GuestbookApiResponse;
-	cache.data = data;
-	cache.timestamp = now;
 
 	return { entries: data };
 };
