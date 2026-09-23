@@ -2,13 +2,15 @@ import { API_URL } from '$env/static/private';
 import type { Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
-export const config = {
-	/** @see https://vercel.com/docs/incremental-static-regeneration */
-	isr: {
-		// Revalidate every 10 minutes
-		expiration: 60 * 10
-	}
-};
+// isr is broken with form actions https://github.com/sveltejs/kit/pull/17011
+
+// export const config = {
+// 	/** @see https://vercel.com/docs/incremental-static-regeneration */
+// 	isr: {
+// 		// Revalidate every 10 minutes
+// 		expiration: 60 * 10
+// 	}
+// };
 
 export type GuestbookApiResponse = Array<{
 	timestamp: string;
