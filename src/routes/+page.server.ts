@@ -71,7 +71,7 @@ export const actions = {
 		});
 
 		if (!res.ok) {
-			return { success: false, message: `Failed to submit guestbook entry (${res.status}/${res.statusText})` };
+			return { success: false, message: `failed to submit guestbook entry (http ${res.status})` };
 		}
 
 		const response = await res.text();
