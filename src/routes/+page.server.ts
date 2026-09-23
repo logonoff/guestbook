@@ -62,16 +62,17 @@ export const load: PageServerLoad = async () => {
 
 export const actions = {
 	default: async ({ request }) => {
+		const headers = new Headers(request.headers);
+		headers.set('Content-Type', 'application/x-www-form-urlencoded');
+
 		const res = await fetch(API_URL, {
 			method: 'POST',
 			body: await request.text(),
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			}
+			headers
 		});
 
 		if (!res.ok) {
-			return { success: false, message: `failed to submit guestbook entry (http ${res.status})` };
+			return { success: false, message: `didn't get a successful response, http ${res.status}` };
 		}
 
 		const response = await res.text();
