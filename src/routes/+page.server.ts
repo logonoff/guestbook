@@ -62,13 +62,15 @@ export const load: PageServerLoad = async () => {
 
 export const actions = {
 	default: async ({ request }) => {
-		const headers = new Headers(request.headers);
-		headers.set('Content-Type', 'application/x-www-form-urlencoded');
+		const body = new URLSearchParams(await request.text());
+		body.set('userAgent', request.headers.get('user-agent') || '');
 
 		const res = await fetch(API_URL, {
 			method: 'POST',
-			body: await request.text(),
-			headers
+			body: body.toString(),
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			}
 		});
 
 		if (!res.ok) {
