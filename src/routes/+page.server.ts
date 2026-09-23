@@ -38,6 +38,10 @@ export const actions = {
 			}
 		});
 
+		if (!res.ok) {
+			return { success: false, message: `Failed to submit guestbook entry (${res.status}/${res.statusText})` };
+		}
+
 		const response = await res.text();
 
 		if (response !== 'OK') {
