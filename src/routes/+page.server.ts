@@ -19,15 +19,45 @@ export type GuestbookApiResponse = Array<{
 	reply: string; // only guestbook entries with a reply are shown
 }>;
 
+const cache: { data: GuestbookApiResponse | null; timestamp: number; revalidating: boolean } = {
+	data: null,
+	timestamp: 0,
+	revalidating: false
+};
+const CACHE_DURATION = 10 * 60 * 1000; // 10 minutes
+
+async function revalidate() {
+	if (cache.revalidating) return;
+	cache.revalidating = true;
+	try {
+		const res = await fetch(API_URL);
+		if (res.ok) {
+			cache.data = (await res.json()) as GuestbookApiResponse;
+			cache.timestamp = Date.now();
+		}
+	} finally {
+		cache.revalidating = false;
+	}
+}
+
 export const load: PageServerLoad = async () => {
-	const res = await fetch(API_URL);
-	if (!res.ok) {
+	const stale = Date.now() - cache.timestamp >= CACHE_DURATION;
+
+	if (cache.data && stale) {
+		revalidate();
+		return { entries: cache.data };
+	}
+
+	else if (cache.data && !stale) {
+		return { entries: cache.data };
+	}
+
+	await revalidate();
+	if (!cache.data) {
 		throw new Error('Failed to fetch guestbook entries');
 	}
 
-	const data = (await res.json()) as GuestbookApiResponse;
-
-	return { entries: data };
+	return { entries: cache.data };
 };
 
 export const actions = {
