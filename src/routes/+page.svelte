@@ -65,7 +65,7 @@
 				</div>
 
 				<div class="shale-v1-input">
-					<input type="email" id="email" name="email" placeholder="email (required)" required />
+					<input type="text" id="contact" name="contact" placeholder="email/website (required)" required />
 				</div>
 			</div>
 
